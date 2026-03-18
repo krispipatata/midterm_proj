@@ -1,0 +1,100 @@
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 30px;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: -1;
+}
+
+.login-page{
+    text-align: center;
+}
+
+.welcome{
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.login-box{
+    background : #bee5b0;
+    width: 300px;
+    margin: auto;
+    padding: 50px;
+    border-radius: 15px;
+    color: white;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.255);
+}
+
+label{
+    display: block;
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 4px;
+    border-radius: 20px;
+    border: 2px solid #457a00;
+    background: #bee5b0;
+}
+
+.title {
+    font-weight: bold;
+    margin: 30px auto 10px;
+    max-width: 520px;
+}
+
+.form-section{
+    max-width: 520px;
+    margin: auto;
+    background: #bee5b0;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.25);
+}
+
+.name {
+    display: flex;
+    gap: 10px;
+}
+
+.course {
+    display: flex;
+    gap: 10px;
+}
+
+
+
+button,
+.nav-btn{
+display:inline-block;
+width: 100%;
+padding: 12px;
+margin-top: 20px;
+background: #bee5b0;
+color: #8AF294;
+border: none;
+border-radius: 25px;
+font-weight: bold;
+text-align: center;
+text-decoration: none;
+cursor: pointer;
+}
