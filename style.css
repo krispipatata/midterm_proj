@@ -98,3 +98,15 @@ text-align: center;
 text-decoration: none;
 cursor: pointer;
 }
+
+.nav-btn.gray {
+background: #999;
+}
+
+.nav-group{
+    max-width: 520px;
+  margin: 30px auto 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
