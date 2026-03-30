@@ -1,6 +1,6 @@
 * {
   box-sizing: border-box;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: Tahoma, Verdana, sans-serif;
 }
 
 body {
@@ -17,7 +17,7 @@ body::before {
     content: "";
     position: fixed;
     inset: 0;
-    background:  linear-gradient(to right, #164a41, #4d774e, #9dc88d);
+    background:  linear-gradient(to right, #1A3D63, #4A7FA7, #B3CFE5);
     z-index: -1;
 }
 
@@ -31,13 +31,13 @@ body::before {
 }
 
 .login-box{
-    background :  linear-gradient(#9dc88d, #4d774e, #164a41);
+    background :  linear-gradient(#B3CFE5, #4A7FA7, #1A3D63);
     width: 300px;
     margin: auto;
     padding: 50px;
     border-radius: 15px;
     color: white;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.255);
+    box-shadow: 0 10px 25px (#0A1931);
 }
 
 label{
@@ -52,8 +52,8 @@ select {
     padding: 8px;
     margin-top: 4px;
     border-radius: 20px;
-    border: 2px solid #95e095;
-    background: #9dc88d;
+    border: 2px solid #0A1931;
+    background: #B3CFE5;
 }
 
 .title {
@@ -65,10 +65,10 @@ select {
 .form-section{
     max-width: 700px;
     margin: auto;
-    background: linear-gradient(to right, #9dc88d, #4d774e, #1e665a);
+    background: linear-gradient(to right, #B3CFE5, #4A7FA7, #1A3D63);
     padding: 20px;
     border-radius: 15px;
-    box-shadow: rgba(0, 0, 0, 0.255);
+    box-shadow: (#0A1931);
 }
 
 .name {
@@ -89,7 +89,7 @@ display:inline-block;
 width: 100%;
 padding: 12px;
 margin-top: 20px;
-background: #4d774e;
+background: #1A3D63;
 color: white ;
 border: none;
 border-radius: 25px;
@@ -100,7 +100,7 @@ cursor: pointer;
 }
 
 .nav-btn.gray {
-background: #999;
+background: #B3CFE5;
 }
 
 .nav-group{
