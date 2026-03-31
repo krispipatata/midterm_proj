@@ -3,6 +3,16 @@
   font-family: Tahoma, Verdana, sans-serif;
 }
 
+:root{
+    --primary:#2563eb;
+    --bg:#f4f6f9;
+    --card:#ffffff;
+    --text:#1f2937;
+    --muted:#6b7280;
+    --danger:#dc2626;
+    --success:#16a34a;
+}
+
 body {
     background-size: cover;
     background-position: center;
@@ -30,15 +40,7 @@ body::before {
     margin-bottom: 20px;
 }
 
-.login-box{
-    background :  linear-gradient(#B3CFE5, #4A7FA7, #1A3D63);
-    width: 300px;
-    margin: auto;
-    padding: 50px;
-    border-radius: 15px;
-    color: white;
-    box-shadow: 0 10px 25px (#0A1931);
-}
+
 
 label{
     display: block;
@@ -69,6 +71,60 @@ select {
     padding: 20px;
     border-radius: 15px;
     box-shadow: (#0A1931);
+}
+
+.container{
+    max-width:700px;
+    margin:60px auto;
+    padding:20px;
+    background: linear-gradient(to right, #B3CFE5, #4A7FA7, #1A3D63);
+    border-radius:15px;
+    box-shadow: (#0A1931);
+}
+.calendar-header{
+    text-align: center;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:10px;
+}
+
+.calendar{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:6px;
+}
+
+.day{
+    padding:10px;
+    text-align:center;
+    border-radius:8px;
+    cursor:pointer;
+    background:#eef2f7;
+}
+
+.day:hover{
+    background:#dbeafe;
+}
+
+.selected{
+    background:var(--primary);
+    color:white;
+}
+
+.unavailable{
+    background:#e5e7eb;
+    color:#9ca3af;
+    cursor:not-allowed;
+}
+
+.time-section{
+    margin-top:20px;
+}
+
+#timeSlots label{
+    display:block;
+    margin:5px 0;
 }
 
 .name {
@@ -109,4 +165,65 @@ background: #B3CFE5;
   display: flex;
   justify-content: space-between;
   gap: 15px;
+}
+
+#prev, #next {
+    width:35%;
+    margin-top:15px;
+    padding:12px;
+    background:var(--primary);
+    color:white;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+/* MAIN LOGIN CONTAINER */
+.login-container{
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    margin-top: 40px;
+}
+
+/* LEFT PANEL (WHITE) */
+.welcome-box{
+    background: #ffffff;
+    width: 250px;
+    padding: 50px;
+    border-radius: 15px 0 0 15px;
+    text-align: left;
+    box-shadow: 0 10px 25px (#0A1931);
+}
+
+.welcome-box h2{
+    margin-top: 0;
+}
+
+.welcome-box p{
+    font-size: 14px;
+    color: #333;
+}
+
+/* RIGHT PANEL (LOGIN) */
+.login-box{
+    background :  linear-gradient(#B3CFE5, #4A7FA7, #1A3D63);
+    width: 300px;
+    padding: 50px;
+    border-radius: 0 15px 15px 0;
+    color: white;
+}
+
+/* INPUT STYLE */
+.login-box input{
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    border: 2px solid #0A1931;
+    margin-bottom: 10px;
+}
+
+/* BUTTON STYLE */
+.login-box button{
+    margin-top: 15px;
 }
