@@ -1,2 +1,0 @@
-# midterm_proj
-FINAL PROJECT FOR MIDTERM IN HCI
