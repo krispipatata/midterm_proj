@@ -1,0 +1,356 @@
+* {
+  box-sizing: border-box;
+  font-family: Tahoma, Verdana, sans-serif;
+}
+
+:root{
+    --primary:#2563eb;
+    --bg:#f4f6f9;
+    --card:#ffffff;
+    --text:#1f2937;
+    --muted:#6b7280;
+    --danger:#dc2626;
+    --success:#16a34a;
+}
+
+body {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 30px;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:  linear-gradient(to right, #1A3D63, #4A7FA7, #B3CFE5);
+    z-index: -1;
+}
+
+.login-page{
+    text-align: center;
+}
+
+.welcome{
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+
+
+label{
+    display: block;
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 4px;
+    border-radius: 20px;
+    border: 2px solid #0A1931;
+    background: #B3CFE5;
+}
+
+.title {
+    font-weight: bold;
+    margin: 30px auto 10px;
+    max-width: 520px;
+}
+
+.form-section{
+    max-width: 700px;
+    margin: auto;
+    background: linear-gradient(to right, #B3CFE5, #4A7FA7, #1A3D63);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow:0 10px 25px rgba(0,0,0,25);
+}
+
+#bookingForm{
+    max-width: 700px;
+    margin: auto;
+    background: linear-gradient(to right, #B3CFE5, #4A7FA7, #1A3D63);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,25);
+}
+
+.container{
+    max-width:700px;
+    margin:60px auto;
+    padding:20px;
+    background: linear-gradient(to right, #B3CFE5, #4A7FA7, #1A3D63);
+    border-radius:15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,25);
+}
+.calendar-header{
+    text-align: center;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:10px;
+}
+
+.calendar{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:6px;
+}
+
+.day{
+    padding:10px;
+    text-align:center;
+    border-radius:8px;
+    cursor:pointer;
+    background:#eef2f7;
+}
+
+.day:hover{
+    background:#dbeafe;
+}
+
+.selected{
+    background:var(--primary);
+    color:white;
+}
+
+.unavailable{
+    background:#e5e7eb;
+    color:#9ca3af;
+    cursor:not-allowed;
+}
+
+.time-section{
+    margin-top:20px;
+}
+
+#timeSlots label{
+    display:block;
+    margin:5px 0;
+}
+
+.name {
+    display: flex;
+    gap: 10px;
+}
+
+.course {
+    display: flex;
+    gap: 10px;
+}
+
+
+
+button,
+.nav-btn{
+display:inline-block;
+width: 100%;
+padding: 12px;
+margin-top: 20px;
+background: #1A3D63;
+color: white ;
+border: none;
+border-radius: 25px;
+font-weight: bold;
+text-align: center;
+text-decoration: none;
+cursor: pointer;
+}
+
+.nav-btn.gray {
+background: #B3CFE5;
+}
+
+.nav-group{
+    max-width: 520px;
+  margin: 30px auto 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+#prev, #next {
+    width:35%;
+    margin-top:15px;
+    padding:12px;
+    background:var(--primary);
+    color:white;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+/* MAIN LOGIN CONTAINER */
+.login-container{
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    margin-top: 40px;
+}
+
+/* LEFT PANEL (WHITE) */
+.welcome-box{
+    background:  linear-gradient(to bottom, #99c4e4, #4A7FA7, #1A3D63);
+    width: 250px;
+    padding: 50px;
+    border-radius: 15px 0 0 15px;
+    text-align: left;
+    box-shadow:0 10px 25px rgba(0,0,0,25);
+}
+
+.welcome-box h2{
+    margin-top: 0;
+}
+
+.welcome-box p{
+    font-size: 14px;
+    color: #333;
+}
+
+/* RIGHT PANEL (LOGIN) */
+.login-box{
+    background :  linear-gradient(#B3CFE5, #4A7FA7, #1A3D63);
+    width: 300px;
+    padding: 50px;
+    border-radius: 0 15px 15px 0;
+    color: white;
+}
+
+/* INPUT STYLE */
+.login-box input{
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    border: 2px solid #0A1931;
+    margin-bottom: 10px;
+}
+
+.password-field {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-field input {
+    flex: 1;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    background: transparent;
+    border: none;
+    color: #0A1931;
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 8px;
+}
+
+.password-toggle:focus {
+    outline: 2px solid #fff;
+}
+
+/* BUTTON STYLE */
+.login-box button{
+    margin-top: 15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.50);
+}
+
+/* =========================
+   CONFIRMATION PAGE STYLE
+========================= */
+
+.confirm-container{
+    display:flex;
+    max-width:900px;
+    margin:50px auto;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* LEFT PANEL */
+.left-panel{
+    flex:1;
+    background:#2c6fa3;
+    padding:30px;
+    color:black;
+    position:relative;
+}
+
+/* decorative vertical line */
+.left-panel::before{
+    content:"";
+    position:absolute;
+    left:20px;
+    top:20px;
+    bottom:20px;
+    width:3px;
+    background:#0A1931;
+}
+
+/* spacing for text */
+.left-panel h3{
+    margin-top:15px;
+}
+
+.left-panel p{
+    margin:5px 0 10px 10px;
+}
+
+/* RIGHT PANEL */
+.right-panel{
+    flex:1;
+    background:#63c3c6;
+    padding:30px;
+    text-align:center;
+}
+
+/* schedule text */
+.right-panel p{
+    margin:10px 0;
+    font-size:16px;
+}
+
+/* BUTTON GROUP */
+.buttons{
+    margin-top:30px;
+    display:flex;
+    gap:15px;
+    justify-content:center;
+}
+
+/* BUTTON STYLE (keep your theme) */
+.buttons button{
+    width:auto;
+    padding:10px 20px;
+    border-radius:20px;
+    border:none;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* edit button */
+.buttons button:first-child{
+    background:#4A7FA7;
+    color:white;
+}
+
+/* confirm button */
+.buttons button:last-child{
+    background:#1A3D63;
+    color:white;
+}
+
+/* hover effects */
+.buttons button:hover{
+    opacity:0.85;
+}

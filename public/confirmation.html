@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirm Appointment</title>
+    <link rel="stylesheet" href="/style.css">
+
+    <style>
+        .confirm-container{
+            display:flex;
+            max-width:900px;
+            margin:50px auto;
+            border-radius:15px;
+            overflow:hidden;
+        }
+
+        .left-panel{
+            flex:1;
+            background:#2c6fa3;
+            padding:30px;
+            color:black;
+        }
+
+        .right-panel{
+            flex:1;
+            background:#63c3c6;
+            padding:30px;
+            text-align:center;
+        }
+
+        .info p{
+            margin:8px 0;
+        }
+
+        .buttons{
+            margin-top:20px;
+            display:flex;
+            gap:10px;
+            justify-content:center;
+        }
+
+        .buttons button{
+            width:auto;
+            padding:10px 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="confirm-container">
+
+    <!-- LEFT -->
+    <div class="left-panel">
+        <h3>Appointment:</h3>
+        <p id="c_appointment"></p>
+
+        <h3>Name:</h3>
+        <p id="c_name"></p>
+
+        <h3>Course:</h3>
+        <p id="c_course"></p>
+
+        <h3>Purpose:</h3>
+        <p id="c_purpose"></p>
+
+        <h3>Email:</h3>
+        <p id="c_email"></p>
+
+        <h3>Contact Number:</h3>
+        <p id="c_contact"></p>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right-panel">
+        <h3>Schedule</h3>
+
+        <p><strong>Date:</strong> <span id="c_date"></span></p>
+        <p><strong>Time:</strong> <span id="c_time"></span></p>
+
+        <div class="buttons">
+            <button onclick="editInfo()">Edit Information</button>
+            <button onclick="confirmBooking()">Confirm Booking</button>
+        </div>
+    </div>
+
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="confirmation.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>STUDENT APPOINTMENT SYSTEM LOG-IN</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body class="login-page">
+
+    <h1 class="welcome">
+        Student Appointment System
+    </h1>
+
+    <!-- LOGIN CONTAINER -->
+    <div class="login-container">
+
+        <!-- LEFT SIDE (WHITE PANEL) -->
+        <div class="welcome-box">
+            <h2>Welcome!</h2>
+            <p>
+                Make sure the account is referred by our
+                registrar before signing up.
+            </p>
+        </div>
+
+
+        <!-- RIGHT SIDE (LOGIN PANEL) -->
+        <div class="login-box">
+
+            <form id="loginForm">
+                <label>Username:</label>
+                <input type="text" id="username" placeholder="TYPE HERE..." required>
+
+                <label>Password:</label>
+                <div class="password-field">
+                    <input type="password" id="password" placeholder="TYPE HERE..." required>
+                    <button type="button" id="togglePassword" class="password-toggle" aria-label="Show password">👁️ <span id="toggleText">See</span></button>
+                </div>
+
+                <button type="submit">LOGIN</button>
+            </form>
+            <script src="login.js"></script>
+        </div>
+
+    </div>
+
+</body>
+</html>

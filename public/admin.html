@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>University Appointment Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="sidebar">
+  <div>
+    <div class="logo">UniBook</div>
+    <div class="menu">
+      <a href="#" class="active">Appointments</a>
+      <a href="#">Students</a>
+      <a href="#">Faculty</a>
+    </div>
+  </div>
+  <div class="profile">
+    <p>Admin</p>
+    <p>admin@university.edu</p>
+    <div class="logout">Logout</div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="header">
+    <h2>Manage Appointments</h2>
+    <div>
+      <input type="text" id="search" class="search" placeholder="Search student...">
+      <button class="add-btn" onclick="openModal()">+ Add</button>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table id="apptTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Department</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- modal -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <h3>Add Appointment</h3>
+    <input type="text" id="name" placeholder="Student Name">
+    <input type="text" id="dept" placeholder="Department">
+    <input type="datetime-local" id="date">
+    <button onclick="addAppt()">Save</button>
+  </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="dashboard.js"></script>
+</body>
+</html>
