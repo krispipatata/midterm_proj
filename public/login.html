@@ -32,10 +32,12 @@
                 <input type="text" id="username" placeholder="TYPE HERE..." required>
 
                 <label>Password:</label>
-                <div class="password-field">
-                    <input type="password" id="password" placeholder="TYPE HERE..." required>
-                    <button type="button" id="togglePassword" class="password-toggle" aria-label="Show password">👁️ <span id="toggleText">See</span></button>
-                </div>
+                <input type="password" id="password" placeholder="TYPE HERE..." required>
+
+                    <div class="show-password">
+                        <input type="checkbox" id="showPassword">
+                        <label for="showPassword">Show</label>
+                    </div>
 
                 <button type="submit">LOGIN</button>
             </form>

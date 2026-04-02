@@ -1,97 +1,100 @@
-const socket = io()
+document.addEventListener("DOMContentLoaded", () => {
 
-const calendar = document.getElementById("calendar")
-const monthYear = document.getElementById("monthYear")
+    const socket = io()
 
-let currentDate = new Date()
-let selectedDate = null
+    const calendar = document.getElementById("calendar")
+    const monthYear = document.getElementById("monthYear")
+    const confirmBtn = document.getElementById("confirmBtn")
 
-// 📅 RENDER CALENDAR
-function renderCalendar() {
-    calendar.innerHTML = ""
+    const unavailableDates = ["2026-04-20","2026-04-22","2026-04-25"];
 
-    const year = currentDate.getFullYear()
-    const month = currentDate.getMonth()
+    let currentDate = new Date()
+    let selectedDate = null
 
-    const firstDay = new Date(year, month, 1).getDay()
-    const daysInMonth = new Date(year, month + 1, 0).getDate()
+    function renderCalendar() {
+        calendar.innerHTML = ""
 
-    monthYear.innerText = currentDate.toLocaleString("default", {
-        month: "long",
-        year: "numeric"
-    })
+        const year = currentDate.getFullYear()
+        const month = currentDate.getMonth()
 
-    // EMPTY SPACES
-    for (let i = 0; i < firstDay; i++) {
-        calendar.innerHTML += `<div></div>`
-    }
+        const firstDay = new Date(year, month, 1).getDay()
+        const daysInMonth = new Date(year, month + 1, 0).getDate()
 
-    // DAYS
-    for (let day = 1; day <= daysInMonth; day++) {
-        const div = document.createElement("div")
-        div.classList.add("day")
-        div.innerText = day
-
-        div.addEventListener("click", () => {
-            document.querySelectorAll(".day").forEach(d => d.classList.remove("selected"))
-            div.classList.add("selected")
-
-            const formattedDay = String(day).padStart(2, "0")
-            const formattedMonth = String(month + 1).padStart(2, "0")
-
-            selectedDate = `${year}-${formattedMonth}-${formattedDay}`
+        monthYear.innerText = currentDate.toLocaleString("default", {
+            month: "long",
+            year: "numeric"
         })
 
-        calendar.appendChild(div)
-    }
-}
+        for (let i = 0; i < firstDay; i++) {
+            calendar.innerHTML += `<div></div>`
+        }
 
-// ⬅️ PREVIOUS MONTH
-document.getElementById("prev").onclick = () => {
-    currentDate.setMonth(currentDate.getMonth() - 1)
+        for(let d=1; d<=daysInMonth; d++){
+            const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+            const isUnavailable = unavailableDates.includes(dateStr);
+
+            const div = document.createElement('div');
+            div.classList.add('day');
+            div.textContent = d;
+
+            if(isUnavailable){
+                div.classList.add('unavailable');
+            } else {
+                div.addEventListener('click', ()=>{
+                    document.querySelectorAll('.day').forEach(el=>el.classList.remove('selected'));
+                    div.classList.add('selected');
+                    selectedDate = dateStr;
+                });
+            }
+
+            calendar.appendChild(div);
+        }
+    }
+
+    document.getElementById("prev").onclick = () => {
+        currentDate.setMonth(currentDate.getMonth() - 1)
+        renderCalendar()
+    }
+
+    document.getElementById("next").onclick = () => {
+        currentDate.setMonth(currentDate.getMonth() + 1)
+        renderCalendar()
+    }
+
     renderCalendar()
-}
 
-// ➡️ NEXT MONTH
-document.getElementById("next").onclick = () => {
-    currentDate.setMonth(currentDate.getMonth() + 1)
-    renderCalendar()
-}
+    // ✅ FIXED BUTTON
+    confirmBtn.addEventListener("click", function () {
 
-renderCalendar()
+        const selectedTime = document.querySelector("input[name='time']:checked")
 
-// 🚀 NEXT STEP → CONFIRMATION PAGE
-document.getElementById("confirmBtn").addEventListener("click", function () {
+        if (!selectedDate) {
+            alert("Please select a date")
+            return
+        }
 
-    const selectedTime = document.querySelector("input[name='time']:checked")
+        if (!selectedTime) {
+            alert("Please select a time")
+            return
+        }
 
-    if (!selectedDate) {
-        alert("Please select a date")
-        return
-    }
+        const savedData = JSON.parse(localStorage.getItem("appointmentData"))
 
-    if (!selectedTime) {
-        alert("Please select a time")
-        return
-    }
+        if (!savedData) {
+            alert("Missing booking data")
+            window.location.href = "booking.html"
+            return
+        }
 
-    const savedData = JSON.parse(localStorage.getItem("appointmentData"))
+        const finalData = {
+            ...savedData,
+            date: selectedDate,
+            time: selectedTime.value
+        }
 
-    if (!savedData) {
-        alert("Missing booking data")
-        window.location.href = "booking.html"
-        return
-    }
+        localStorage.setItem("appointmentData", JSON.stringify(finalData))
 
-    const finalData = {
-        ...savedData,
-        date: selectedDate,
-        time: selectedTime.value
-    }
+        window.location.href = "confirmation.html"
+    })
 
-    // SAVE DATA FOR CONFIRMATION PAGE
-    localStorage.setItem("appointmentData", JSON.stringify(finalData))
-
-    // GO TO CONFIRMATION PAGE
-    window.location.href = "confirmation.html"
 })

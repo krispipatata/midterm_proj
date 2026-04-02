@@ -1,7 +1,6 @@
 const loginForm = document.getElementById("loginForm");
 const passwordInput = document.getElementById("password");
-const togglePassword = document.getElementById("togglePassword");
-const toggleText = document.getElementById("toggleText");
+const checkbox = document.getElementById("showPassword");
 
 loginForm.addEventListener("submit", function(e) {
     e.preventDefault();
@@ -16,9 +15,7 @@ loginForm.addEventListener("submit", function(e) {
     }
 });
 
-togglePassword.addEventListener("click", function() {
-    const isPassword = passwordInput.type === "password";
-    passwordInput.type = isPassword ? "text" : "password";
-    toggleText.textContent = isPassword ? "Unsee" : "See";
-    togglePassword.setAttribute("aria-label", isPassword ? "Hide password" : "Show password");
+// ✅ Show/Hide password
+checkbox.addEventListener("change", function () {
+    passwordInput.type = this.checked ? "text" : "password";
 });

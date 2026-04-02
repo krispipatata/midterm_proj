@@ -1,44 +1,113 @@
-const socket = io()
-const table = document.querySelector("#apptTable tbody")
+// ✅ CONNECT TO BACKEND SERVER
+const socket = io("http://localhost:3000");
 
-function addRow(appt) {
-    const row = document.createElement("tr")
-    row.id = appt.id
+const table = document.querySelector("#apptTable tbody");
+let data = [];
 
-    row.innerHTML = `
-        <td>${appt.name}</td>
-        <td>${appt.course || "N/A"}</td>
-        <td>${appt.date} ${appt.time || ""}</td>
-        <td>${appt.status}</td>
-        <td>
-            <button onclick="updateStatus(${appt.id}, 'Approved')">Approve</button>
-            <button onclick="updateStatus(${appt.id}, 'Rejected')">Reject</button>
-        </td>
-    `
+// 🎯 RENDER TABLE
+function render() {
+    table.innerHTML = "";
 
-    table.appendChild(row)
+    data.forEach((d, i) => {
+        table.innerHTML += `
+        <tr>
+            <td>${d.name}</td>
+            <td>${d.course || "N/A"}</td>
+            <td>${d.date}</td>
+            <td>
+                <span class="status ${getStatusClass(d.status)}">
+                    ${d.status.toLowerCase()}
+                </span>
+            </td>
+            <td class="actions">
+                <button class="view" onclick="view(${i})">👁</button>
+                <button class="confirm" onclick="confirmAppt(${d.id})">✔</button>
+                <button class="cancel" onclick="removeAppt(${d.id})">✖</button>
+            </td>
+        </tr>`;
+    });
 }
 
-// RECEIVE NEW APPOINTMENT (REALTIME)
-socket.on("new_appointment", (appt) => {
-    addRow(appt)
-})
+// 🎯 STATUS STYLE MATCH (for CSS)
+function getStatusClass(status) {
+    status = status.toLowerCase();
 
-// UPDATE STATUS LIVE
-socket.on("appointment_updated", ({ id, status }) => {
-    const row = document.getElementById(id)
-    if (row) {
-        row.children[3].innerText = status
+    if (status === "pending") return "booked";
+    if (status === "approved") return "open";
+    if (status === "rejected") return "completed";
+
+    return "open";
+}
+
+// ✅ LOAD EXISTING APPOINTMENTS
+async function loadAppointments() {
+    try {
+        const res = await fetch("http://localhost:3000/appointments");
+        const appts = await res.json();
+
+        data = appts;
+        render();
+    } catch (err) {
+        console.error("Error loading appointments:", err);
     }
-})
-
-// SEND UPDATE
-async function updateStatus(id, status) {
-    await fetch("/update", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ id, status })
-    })
 }
+
+// run on page load
+loadAppointments();
+
+// 🔄 REALTIME NEW APPOINTMENT
+socket.on("new_appointment", (appt) => {
+    data.push(appt);
+    render();
+});
+
+// 🔄 REALTIME STATUS UPDATE
+socket.on("appointment_updated", ({ id, status }) => {
+    const index = data.findIndex(d => d.id == id);
+
+    if (index !== -1) {
+        data[index].status = status;
+        render();
+    }
+});
+
+// ✔ APPROVE
+async function confirmAppt(id) {
+    await updateStatus(id, "Approved");
+}
+
+// ✖ REJECT
+async function removeAppt(id) {
+    await updateStatus(id, "Rejected");
+}
+
+// 🔁 UPDATE STATUS (SEND TO SERVER)
+async function updateStatus(id, status) {
+    try {
+        await fetch("http://localhost:3000/update", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ id, status })
+        });
+    } catch (err) {
+        console.error("Update failed:", err);
+    }
+}
+
+// 👁 VIEW DETAILS
+function view(i) {
+    alert(JSON.stringify(data[i], null, 2));
+}
+
+// 🔍 SEARCH
+document.getElementById("search").addEventListener("keyup", function () {
+    let val = this.value.toLowerCase();
+
+    document.querySelectorAll("tbody tr").forEach(row => {
+        row.style.display = row.innerText.toLowerCase().includes(val)
+            ? ""
+            : "none";
+    });
+});

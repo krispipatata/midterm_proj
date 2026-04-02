@@ -4,7 +4,7 @@ const data = JSON.parse(localStorage.getItem("appointmentData"))
 
 if (!data) {
     alert("No data found!")
-    window.location.href = "booking.html"
+    window.location.href = "booking,html"
 }
 
 // DISPLAY DATA
@@ -26,17 +26,44 @@ function editInfo() {
 // CONFIRM BUTTON (SEND TO SERVER)
 async function confirmBooking() {
 
-    await fetch("/book", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-    })
+    console.log("Button clicked ✅");
 
-    alert("Appointment Confirmed!")
+    // ✅ FIX: define data inside function
+    const data = JSON.parse(localStorage.getItem("appointmentData"));
 
-    localStorage.removeItem("appointmentData")
+    if (!data) {
+        alert("No appointment data found!");
+        return;
+    }
 
-    window.location.href = "booking.html"
+    const finalData = {
+        name: data.name,
+        course: data.course,
+        date: data.date + " " + data.time,
+        status: "Pending"
+    };
+
+    console.log("Sending data:", finalData);
+
+    try {
+        const res = await fetch("/book", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(finalData)
+        });
+
+        const result = await res.json();
+        console.log("Server response:", result);
+
+        alert("Appointment Confirmed!");
+
+        localStorage.removeItem("appointmentData");
+
+        window.location.href = "booking.html";
+
+    } catch (err) {
+        console.error("Error:", err);
+    }
 }

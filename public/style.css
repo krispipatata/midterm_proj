@@ -131,9 +131,18 @@ select {
     margin-top:20px;
 }
 
-#timeSlots label{
-    display:block;
-    margin:5px 0;
+#timeSlots label {
+    display: flex;          /* makes radio + text in one row */
+    align-items: center;    /* vertical alignment */
+    gap: 10px;              /* space between radio and text */
+    margin: 8px 0;
+    cursor: pointer;
+}
+
+#timeSlots input[type="radio"] {
+    width: auto;     /* prevents stretching */
+    height: auto;
+    margin: 0;
 }
 
 .name {
@@ -353,4 +362,29 @@ background: #B3CFE5;
 /* hover effects */
 .buttons button:hover{
     opacity:0.85;
+}
+
+.show-password {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+/* Fix checkbox */
+.show-password input[type="checkbox"] {
+    width: auto;
+    height: auto;
+    margin: 0;
+    vertical-align: middle;
+    position: relative;
+    top: 0px; /* 👈 tiny adjustment for perfect alignment */
+}
+
+/* Fix label */
+.show-password label {
+    margin: 0;
+    line-height: 1;
+    cursor: pointer;
 }
