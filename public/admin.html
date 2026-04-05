@@ -7,7 +7,6 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-<!-- FIX: correct path -->
 <link rel="stylesheet" href="dashboard.css">
 </head>
 
@@ -15,7 +14,6 @@
 
 <div class="layout">
 
-  <!-- SIDEBAR -->
   <div class="sidebar">
     <div>
       <div class="logo">Admin Dashboard</div>
@@ -23,7 +21,7 @@
       <div class="menu">
         <a href="#" class="active">Appointments</a>
         <a href="#">Students</a>
-        <a href="#">Faculty</a>
+        <a href="#">Alumni</a>
       </div>
     </div>
 
@@ -34,7 +32,6 @@
     </div>
   </div>
 
-  <!-- MAIN -->
   <div class="main">
 
     <div class="header">
@@ -67,7 +64,6 @@
 
 </div>
 
-<!-- MODAL -->
 <div class="modal" id="modal">
   <div class="modal-content">
     <h3>Add Appointment</h3>
@@ -78,13 +74,10 @@
   </div>
 </div>
 
-<!-- Socket -->
 <script src="/socket.io/socket.io.js"></script>
 
-<!-- FIX: correct path -->
 <script src="dashboard.js"></script>
 
-<!-- ADD MISSING FUNCTIONS -->
 <script>
 function openModal() {
   document.getElementById("modal").style.display = "flex";
@@ -94,7 +87,6 @@ function toggleSidebar() {
   document.querySelector(".sidebar").classList.toggle("active");
 }
 
-// ADD APPOINTMENT (connect to server)
 async function addAppt() {
   const name = document.getElementById("name").value;
   const dept = document.getElementById("dept").value;
@@ -107,7 +99,7 @@ async function addAppt() {
     },
     body: JSON.stringify({
       name,
-      course: dept, // FIX: match dashboard.js
+      course: dept,
       date,
       status: "Pending"
     })

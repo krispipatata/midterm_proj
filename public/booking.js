@@ -10,7 +10,6 @@ document.getElementById("bookingForm").addEventListener("submit", (e) => {
         course: document.getElementById("course").value,
         year: document.getElementById("year").value,
         section: document.getElementById("section").value,
-        date: document.getElementById("date").value,
         purpose: document.getElementById("purpose").value,
         email: document.getElementById("email").value,
         contact: document.getElementById("contact").value

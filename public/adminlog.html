@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ADMIN DASHBOARD LOG-IN</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body class="login-page">
+
+    <h1 class="welcome">
+        Admin Dashboard
+    </h1>
+
+    <div class="login-container">
+
+        <div class="welcome-box">
+            <h2>Welcome!</h2>
+            <p>
+                Access is restricted to institutional-issued
+                or admin-approved accounts only.
+
+                Please ensure your account was
+                provided bt the institution or has
+                been formally approved by the
+                administrator
+            </p>
+        </div>
+
+        <div class="login-box">
+
+            <form id="loginForm">
+                <label>Username:</label>
+                <input type="text" id="username" placeholder="TYPE HERE..." required>
+
+                <label>Password:</label>
+                <input type="password" id="password" placeholder="TYPE HERE..." required>
+
+                    <div class="show-password">
+                        <input type="checkbox" id="showPassword">
+                        <label for="showPassword">Show</label>
+                    </div>
+
+                <button type="submit">LOGIN</button>
+            </form>
+            <script src="adminlog.js"></script>
+        </div>
+
+    </div>
+
+</body>
+</html>

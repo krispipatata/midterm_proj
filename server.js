@@ -13,13 +13,13 @@ app.use(express.static("public"))
 // TEMP STORAGE
 let appointments = []
 
-// ✅ GET ALL APPOINTMENTS
+// GET ALL APPOINTMENTS
 app.get("/appointments", (req, res) => {
     console.log("GET /appointments HIT"); // 👈 add this
     res.json(appointments)
 })
 
-// ✅ BOOK APPOINTMENT
+// BOOK APPOINTMENT
 app.post("/book", (req, res) => {
     const newAppointment = {
         id: Date.now(),
@@ -34,7 +34,7 @@ app.post("/book", (req, res) => {
     res.json({ message: "Booked!" })
 })
 
-// ✅ UPDATE STATUS
+// UPDATE STATUS
 app.post("/update", (req, res) => {
     const { id, status } = req.body
 
