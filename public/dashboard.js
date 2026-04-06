@@ -1,107 +1,90 @@
-// ✅ CONNECT TO BACKEND SERVER
 const socket = io("http://localhost:3000");
 
 const table = document.querySelector("#apptTable tbody");
-let data = [];
+const historyBody = document.getElementById("historyBody");
+const notifBadge = document.getElementById("notifBadge");
 
-// 🎯 RENDER TABLE
+let data = [];
+let unseenCount = 0;
+
 function render() {
     table.innerHTML = "";
+    historyBody.innerHTML = "";
 
-    data.forEach((d, i) => {
+    let active = data.filter(d => d.status === "Pending");
+    let history = data.filter(d => d.status !== "Pending");
+
+    // ACTIVE
+    active.forEach((d, i) => {
         table.innerHTML += `
         <tr>
             <td>${d.name}</td>
             <td>${d.course || "N/A"}</td>
+            <td>${d.appointment || "N/A"}</td>
             <td>${d.date}</td>
-            <td>
-                <span class="status ${getStatusClass(d.status)}">
-                    ${d.status.toLowerCase()}
-                </span>
-            </td>
+            <td><span class="status booked">${d.status}</span></td>
             <td class="actions">
-                <button class="view" onclick="view(${i})">👁</button>
-                <button class="confirm" onclick="confirmAppt(${d.id})">✔</button>
-                <button class="cancel" onclick="removeAppt(${d.id})">✖</button>
+                <button class="confirm" onclick="updateStatus(${d.id}, 'Approved')">✔</button>
+                <button class="cancel" onclick="updateStatus(${d.id}, 'Rejected')">✖</button>
             </td>
+        </tr>`;
+    });
+
+    // HISTORY
+    history.forEach(d => {
+        historyBody.innerHTML += `
+        <tr>
+            <td>${d.name}</td>
+            <td>${d.course || "N/A"}</td>
+            <td>${d.appointment || "N/A"}</td> <!-- ✅ NEW -->
+            <td>${d.date}</td>
+            <td><span class="status ${getStatusClass(d.status)}">${d.status}</span></td>
         </tr>`;
     });
 }
 
-// 🎯 STATUS STYLE MATCH (for CSS)
 function getStatusClass(status) {
-    status = status.toLowerCase();
-
-    if (status === "pending") return "booked";
-    if (status === "approved") return "open";
-    if (status === "rejected") return "completed";
-
-    return "open";
+    if (status === "Approved") return "open";
+    if (status === "Rejected") return "completed";
+    return "booked";
 }
 
-// ✅ LOAD EXISTING APPOINTMENTS
+// LOAD FROM SERVER
 async function loadAppointments() {
-    try {
-        const res = await fetch("http://localhost:3000/appointments");
-        const appts = await res.json();
-
-        data = appts;
-        render();
-    } catch (err) {
-        console.error("Error loading appointments:", err);
-    }
+    const res = await fetch("http://localhost:3000/appointments");
+    data = await res.json();
+    render();
 }
-
-// run on page load
 loadAppointments();
 
-// 🔄 REALTIME NEW APPOINTMENT
+// 🔴 NEW APPOINTMENT NOTIF
 socket.on("new_appointment", (appt) => {
     data.push(appt);
+    unseenCount++;
+    notifBadge.innerText = unseenCount;
+    notifBadge.style.display = "inline-block";
     render();
 });
 
-// 🔄 REALTIME STATUS UPDATE
+// UPDATE STATUS
 socket.on("appointment_updated", ({ id, status }) => {
     const index = data.findIndex(d => d.id == id);
-
     if (index !== -1) {
         data[index].status = status;
         render();
     }
 });
 
-// ✔ APPROVE
-async function confirmAppt(id) {
-    await updateStatus(id, "Approved");
-}
-
-// ✖ REJECT
-async function removeAppt(id) {
-    await updateStatus(id, "Rejected");
-}
-
-// 🔁 UPDATE STATUS (SEND TO SERVER)
+// SEND UPDATE
 async function updateStatus(id, status) {
-    try {
-        await fetch("http://localhost:3000/update", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ id, status })
-        });
-    } catch (err) {
-        console.error("Update failed:", err);
-    }
+    await fetch("http://localhost:3000/update", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({ id, status })
+    });
 }
 
-// 👁 VIEW DETAILS
-function view(i) {
-    alert(JSON.stringify(data[i], null, 2));
-}
-
-// 🔍 SEARCH
+// SEARCH
 document.getElementById("search").addEventListener("keyup", function () {
     let val = this.value.toLowerCase();
 

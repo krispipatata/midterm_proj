@@ -6,7 +6,6 @@
 <title>University Appointment Dashboard</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
 <link rel="stylesheet" href="dashboard.css">
 </head>
 
@@ -14,14 +13,16 @@
 
 <div class="layout">
 
+  <!-- SIDEBAR -->
   <div class="sidebar">
     <div>
       <div class="logo">Admin Dashboard</div>
 
       <div class="menu">
-        <a href="#" class="active">Appointments</a>
-        <a href="#">Students</a>
-        <a href="#">Alumni</a>
+        <a href="#" class="active" onclick="showTab('appointments')">
+          Appointments <span id="notifBadge" class="badge">0</span>
+        </a>
+        <a href="#" onclick="showTab('history')">History</a>
       </div>
     </div>
 
@@ -32,12 +33,12 @@
     </div>
   </div>
 
+  <!-- MAIN -->
   <div class="main">
 
     <div class="header">
       <button class="menu-btn" onclick="toggleSidebar()">☰</button>
-
-      <h2>Manage Appointments</h2>
+      <h2 id="title">Manage Appointments</h2>
 
       <div>
         <input type="text" id="search" class="search" placeholder="Search student...">
@@ -45,12 +46,14 @@
       </div>
     </div>
 
-    <div class="table-container">
+    <!-- ACTIVE TABLE -->
+    <div class="table-container" id="appointmentsTab">
       <table id="apptTable">
         <thead>
           <tr>
             <th>Name</th>
             <th>Department</th>
+            <th>Appointment</th>
             <th>Date</th>
             <th>Status</th>
             <th>Actions</th>
@@ -60,12 +63,30 @@
       </table>
     </div>
 
+    <!-- HISTORY TABLE -->
+    <div class="table-container" id="historyTab" style="display:none;">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Department</th>
+              <th>Appointment</th>
+            <th>Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="historyBody"></tbody>
+      </table>
+    </div>
+
   </div>
 
 </div>
 
+<!-- MODAL -->
 <div class="modal" id="modal">
   <div class="modal-content">
+    <button onclick="closeModal()" style="float:right;">❌</button>
     <h3>Add Appointment</h3>
     <input type="text" id="name" placeholder="Student Name">
     <input type="text" id="dept" placeholder="Department">
@@ -75,16 +96,32 @@
 </div>
 
 <script src="/socket.io/socket.io.js"></script>
-
 <script src="dashboard.js"></script>
 
 <script>
+const SERVER = "http://localhost:3000";
+
 function openModal() {
   document.getElementById("modal").style.display = "flex";
 }
 
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
+
 function toggleSidebar() {
   document.querySelector(".sidebar").classList.toggle("active");
+}
+
+function showTab(tab){
+  document.getElementById("appointmentsTab").style.display =
+    tab === "appointments" ? "block" : "none";
+
+  document.getElementById("historyTab").style.display =
+    tab === "history" ? "block" : "none";
+
+  document.getElementById("title").innerText =
+    tab === "history" ? "History" : "Manage Appointments";
 }
 
 async function addAppt() {
@@ -92,22 +129,29 @@ async function addAppt() {
   const dept = document.getElementById("dept").value;
   const date = document.getElementById("date").value;
 
-  await fetch("/book", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      name,
-      course: dept,
-      date,
-      status: "Pending"
-    })
-  });
+  if(!name || !dept || !date){
+    alert("Please fill all fields");
+    return;
+  }
 
-  document.getElementById("modal").style.display = "none";
+  try {
+    await fetch(SERVER + "/book", {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({
+        name,
+        course: dept,
+        date,
+        status: "Pending"
+      })
+    });
+
+    alert("Appointment Added!");
+    closeModal();
+
+  } catch(err){
+    console.error(err);
+    alert("Server not connected!");
+  }
 }
 </script>
-
-</body>
-</html>

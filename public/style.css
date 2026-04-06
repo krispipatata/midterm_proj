@@ -132,15 +132,15 @@ select {
 }
 
 #timeSlots label {
-    display: flex;          /* makes radio + text in one row */
-    align-items: center;    /* vertical alignment */
-    gap: 10px;              /* space between radio and text */
+    display: flex;         
+    align-items: center;    
+    gap: 10px;              
     margin: 8px 0;
     cursor: pointer;
 }
 
 #timeSlots input[type="radio"] {
-    width: auto;     /* prevents stretching */
+    width: auto;     
     height: auto;
     margin: 0;
 }
@@ -196,7 +196,6 @@ background: #B3CFE5;
     cursor:pointer;
 }
 
-/* MAIN LOGIN CONTAINER */
 .login-container{
     display: flex;
     justify-content: center;
@@ -204,7 +203,6 @@ background: #B3CFE5;
     margin-top: 40px;
 }
 
-/* LEFT PANEL (WHITE) */
 .welcome-box{
     background:  linear-gradient(to bottom, #99c4e4, #4A7FA7, #1A3D63);
     width: 250px;
@@ -232,7 +230,6 @@ background: #B3CFE5;
     color: white;
 }
 
-/* INPUT STYLE */
 .login-box input{
     width: 100%;
     padding: 10px;
@@ -273,10 +270,6 @@ background: #B3CFE5;
     box-shadow:0 10px 25px rgba(0,0,0,0.50);
 }
 
-/* =========================
-   CONFIRMATION PAGE STYLE
-========================= */
-
 .confirm-container{
     display:flex;
     max-width:900px;
@@ -286,16 +279,14 @@ background: #B3CFE5;
     box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
-/* LEFT PANEL */
 .left-panel{
     flex:1;
-    background:#2c6fa3;
+    background:#f9fcff;
     padding:30px;
     color:black;
     position:relative;
 }
 
-/* decorative vertical line */
 .left-panel::before{
     content:"";
     position:absolute;
@@ -306,7 +297,6 @@ background: #B3CFE5;
     background:#0A1931;
 }
 
-/* spacing for text */
 .left-panel h3{
     margin-top:15px;
 }
@@ -315,7 +305,6 @@ background: #B3CFE5;
     margin:5px 0 10px 10px;
 }
 
-/* RIGHT PANEL */
 .right-panel{
     flex:1;
     background:#63c3c6;
@@ -323,13 +312,11 @@ background: #B3CFE5;
     text-align:center;
 }
 
-/* schedule text */
 .right-panel p{
     margin:10px 0;
     font-size:16px;
 }
 
-/* BUTTON GROUP */
 .buttons{
     margin-top:30px;
     display:flex;
@@ -337,7 +324,6 @@ background: #B3CFE5;
     justify-content:center;
 }
 
-/* BUTTON STYLE (keep your theme) */
 .buttons button{
     width:auto;
     padding:10px 20px;
@@ -379,7 +365,7 @@ background: #B3CFE5;
     margin: 0;
     vertical-align: middle;
     position: relative;
-    top: 0px; /* 👈 tiny adjustment for perfect alignment */
+    top: 0px;
 }
 
 /* Fix label */

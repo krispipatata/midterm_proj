@@ -51,3 +51,7 @@ app.post("/update", (req, res) => {
 server.listen(3000, () => {
     console.log("Server running at http://localhost:3000")
 })
+
+app.get("/students", (req, res) => {
+    res.json(appointments); // or rename to students if that's your data
+});

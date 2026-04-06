@@ -9,13 +9,11 @@ body{
   background:#f5f6fa;
 }
 
-/* 🔥 LAYOUT FIX */
 .layout{
   display:flex;
   min-height:100vh;
 }
 
-/* SIDEBAR */
 .sidebar{
   width:250px;
   min-width:250px;
@@ -72,14 +70,12 @@ body{
   cursor:pointer;
 }
 
-/* 🔥 MAIN FIX */
 .main{
   margin-left:250px;
   width:calc(100% - 250px);
   padding:40px;
 }
 
-/* HEADER */
 .header{
   display:flex;
   justify-content:space-between;
@@ -109,7 +105,6 @@ body{
   cursor:pointer;
 }
 
-/* TABLE CONTAINER */
 .table-container{
   background:#f1f1f1;
   padding:25px;
@@ -118,7 +113,6 @@ body{
   overflow-x:auto;
 }
 
-/* TABLE */
 table{
   width:100%;
   min-width:700px;
@@ -140,7 +134,6 @@ tr:nth-child(even){
   background:transparent;
 }
 
-/* STATUS */
 .status{
   padding:6px 14px;
   border-radius:20px;
@@ -163,7 +156,6 @@ tr:nth-child(even){
   color:#d93025;
 }
 
-/* ACTIONS */
 .actions{
   display:flex;
   gap:8px;
@@ -192,7 +184,6 @@ tr:nth-child(even){
   color:#fff;
 }
 
-/* MODAL */
 .modal{
   position:fixed;
   top:0;
@@ -216,4 +207,15 @@ tr:nth-child(even){
   width:100%;
   margin:10px 0;
   padding:8px;
+}
+
+/* NOTIFICATION BADGE */
+.badge{
+  background:red;
+  color:white;
+  font-size:12px;
+  padding:3px 8px;
+  border-radius:50%;
+  margin-left:8px;
+  display:none;
 }
